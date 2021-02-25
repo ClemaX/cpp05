@@ -9,11 +9,6 @@ class Bureaucrat;
 
 class Form
 {
-private:
-	std::string			name;
-	Bureaucrat::grade_t	minGrade;
-	bool				isSigned;
-
 public:
 	class GradeException		:	public std::exception {};
 
@@ -29,6 +24,15 @@ public:
 		char const*	what() const throw();
 	};
 
+private:
+	std::string			name;
+	Bureaucrat::grade_t	minGrade;
+	bool				isSigned;
+
+protected:
+	void	setMinGrade(Bureaucrat::grade_t grade) throw(GradeException);
+
+public:
 	Form();
 	~Form();
 
@@ -41,8 +45,6 @@ public:
 	inline std::string const&	getName() const { return name; };
 	inline Bureaucrat::grade_t	getMinGrade() const { return minGrade; };
 	inline bool					getIsSigned() const { return isSigned; };
-
-	void	setMinGrade(Bureaucrat::grade_t grade) throw(GradeException);
 
 	void	beSigned(Bureaucrat const& signee) throw (GradeTooLowException);
 };
