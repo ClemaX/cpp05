@@ -5,18 +5,8 @@
 
 class Bureaucrat
 {
-private:
-	typedef unsigned int	grade_t;
-
-	std::string const	name;
-	grade_t				grade;
-
-	Bureaucrat();
-
 public:
-	static  grade_t const	minGrade = 150;
-	static  grade_t const	maxGrade = 1;
-	static	grade_t const	step = 1;
+	typedef unsigned int	grade_t;
 
 	class GradeException	:	public std::exception {};
 
@@ -29,6 +19,17 @@ public:
 	{
 		char const*	what() const throw();
 	};
+
+private:
+	std::string const	name;
+	grade_t				grade;
+
+	Bureaucrat();
+
+public:
+	static  grade_t const	minGrade = 150;
+	static  grade_t const	maxGrade = 1;
+	static	grade_t const	step = 1;
 
 	~Bureaucrat();
 

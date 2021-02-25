@@ -32,7 +32,12 @@ Bureaucrat&		Bureaucrat::operator=(Bureaucrat const& src)
 		grade = src.grade;
 	return *this;
 }
-
+/**
+ * @brief Set the Bureaucrat's grade.
+ *
+ * Throws a GradeException if the new grade is out of bounds.
+ * @param newGrade The grade to assign.
+ */
 void	Bureaucrat::setGrade(grade_t newGrade) throw(GradeException)
 {
 	if (newGrade < maxGrade)
@@ -43,11 +48,17 @@ void	Bureaucrat::setGrade(grade_t newGrade) throw(GradeException)
 		grade = newGrade;
 }
 
+/**
+ * @brief Upgrade the Bureaucrat.
+ */
 void	Bureaucrat::upgrade() throw(GradeException)
 {
 	setGrade(grade - step);
 }
 
+/**
+ * @brief Downgrade the Bureaucrat.
+ */
 void	Bureaucrat::downgrade() throw(GradeException)
 {
 	setGrade(grade + step);
