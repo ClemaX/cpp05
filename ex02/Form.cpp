@@ -44,7 +44,7 @@ Form&		Form::operator=(Form const& src)
 /**
  * @brief Set the minimum grade required to sign the form.
  *
- * Throws a GradeException if the grade is out of bounds.
+ * Throws a `GradeException` if the grade is out of bounds.
  *
  * The minimum and maximum are defined respectively by
  * `Bureaucrat::minGrade` and `Bureaucrat::maxGrade`.
@@ -64,7 +64,7 @@ void	Form::setSignGrade(Bureaucrat::grade_t newGrade) throw(GradeException)
 /**
  * @brief Set the minimum grade required to execute the form.
  *
- * Throws a GradeException if the grade is out of bounds.
+ * Throws a `GradeException` if the grade is out of bounds.
  *
  * The minimum and maximum are defined respectively by
  * `Bureaucrat::minGrade` and `Bureaucrat::maxGrade`.
@@ -98,26 +98,29 @@ void	Form::beSigned(Bureaucrat const& signee) throw(GradeTooLowException)
 /**
  * @brief Execute the form if the signee's grade is high enough.
  *
- * Throws a GradeTooLowException if the signee's grade is too low.
+ * Throws a `FormNotSignedException` if the form hasn't been signed.
+ * Throws a `GradeTooLowException` if the signee's grade is too low.
  * @param signee The Bureaucrat signing the form.
  */
-void	Form::execute(Bureaucrat const& signee) throw(GradeTooLowException)
+void	Form::execute(Bureaucrat const& signee)
+	throw(FormNotSignedException, GradeTooLowException)
 {
-	if (signee.getGrade() <= execGrade)
-		std::cout << "Executing " << name << "..." << std::endl;
-	else
+	if (!isSigned)
+		throw FormNotSignedException();
+	else if (signee.getGrade() > execGrade)
 		throw GradeTooLowException();
+	else
+		payload();
 }
 
 char const*	Form::GradeTooLowException::what() const throw()
-{
-	return "Grade too low";
-}
+{ return "Grade too low"; }
 
 char const*	Form::GradeTooHighException::what() const throw()
-{
-	return "Grade too high";
-}
+{ return "Grade too high"; }
+
+char const*	Form::FormNotSignedException::what() const throw()
+{ return "Form has not been signed"; }
 
 std::ostream&	operator<<(std::ostream& os, Form const& src)
 {

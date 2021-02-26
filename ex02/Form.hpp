@@ -10,7 +10,15 @@ class Bureaucrat;
 class Form
 {
 public:
-	class GradeException		:	public std::exception {};
+	class FormException			:	public std::exception {};
+
+	class GradeException		:	public FormException {};
+
+	class FormNotSignedException	:	public FormException
+	{
+	public:
+		char const* what() const throw();
+	};
 
 	class GradeTooLowException	:	public GradeException
 	{
@@ -30,13 +38,14 @@ private:
 	Bureaucrat::grade_t	execGrade;
 	bool				isSigned;
 
-protected:
 	void	setSignGrade(Bureaucrat::grade_t grade) throw(GradeException);
 	void	setExecGrade(Bureaucrat::grade_t grade) throw(GradeException);
 
+	virtual void	payload() const = 0;
+
 public:
 	Form();
-	~Form();
+	virtual ~Form();
 
 	Form(std::string const& name, Bureaucrat::grade_t newSignGrade,
 		Bureaucrat::grade_t newExecGrade);
@@ -51,7 +60,8 @@ public:
 	inline bool					getIsSigned() const { return isSigned; };
 
 	void	beSigned(Bureaucrat const& signee) throw (GradeTooLowException);
-	void	execute(Bureaucrat const& signee) throw (GradeTooLowException);
+	void	execute(Bureaucrat const& signee)
+		throw (GradeTooLowException, FormNotSignedException);
 };
 
 std::ostream&	operator<<(std::ostream& os, Form const& src);
