@@ -46,7 +46,7 @@ public:
 	inline Bureaucrat::grade_t	getSignGrade() const { return signGrade; };
 	inline bool					getIsSigned() const { return isSigned; };
 
-	void	beSigned(Bureaucrat const& signee) throw (GradeTooLowException);
+	void	beSigned(Bureaucrat const& signee) throw(GradeTooLowException);
 };
 
 std::ostream&	operator<<(std::ostream& os, Form const& src);
