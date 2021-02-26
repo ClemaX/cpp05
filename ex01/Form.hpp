@@ -27,12 +27,10 @@ public:
 private:
 	std::string			name;
 	Bureaucrat::grade_t	signGrade;
-	Bureaucrat::grade_t	execGrade;
 	bool				isSigned;
 
 protected:
 	void	setSignGrade(Bureaucrat::grade_t grade) throw(GradeException);
-	void	setExecGrade(Bureaucrat::grade_t grade) throw(GradeException);
 
 public:
 	Form();
@@ -46,7 +44,6 @@ public:
 
 	inline std::string const&	getName() const { return name; };
 	inline Bureaucrat::grade_t	getSignGrade() const { return signGrade; };
-	inline Bureaucrat::grade_t	getExecGrade() const { return execGrade; };
 	inline bool					getIsSigned() const { return isSigned; };
 
 	void	beSigned(Bureaucrat const& signee) throw (GradeTooLowException);

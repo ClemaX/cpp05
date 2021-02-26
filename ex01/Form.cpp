@@ -2,35 +2,30 @@
 
 Form::Form()
 	:	name(""),
-		minGrade(Bureaucrat::maxGrade),
+		signGrade(Bureaucrat::maxGrade),
 		isSigned(false)
-{
-}
+{}
 
 Form::~Form()
-{
-}
+{}
 
-Form::Form(std::string const& name, Bureaucrat::grade_t newMinGrade)
+Form::Form(std::string const& name, Bureaucrat::grade_t newsignGrade)
 	:	name(name),
 		isSigned(false)
-{
-	setMinGrade(newMinGrade);
-}
+{ setSignGrade(newsignGrade); }
 
 Form::Form(Form const& src)
 	:	name(src.name),
-		minGrade(src.minGrade),
+		signGrade(src.signGrade),
 		isSigned(src.isSigned)
-{
-}
+{}
 
 Form&		Form::operator=(Form const& src)
 {
 	if (this != &src)
 	{
 		name = src.name;
-		minGrade = src.minGrade;
+		signGrade = src.signGrade;
 		isSigned = src.isSigned;
 	}
 	return *this;
@@ -42,14 +37,14 @@ Form&		Form::operator=(Form const& src)
  * Throws a GradeException if the grade is out of bounds.
  * @param newGrade The new minimum grade.
  */
-void	Form::setMinGrade(Bureaucrat::grade_t newGrade) throw(GradeException)
+void	Form::setSignGrade(Bureaucrat::grade_t newGrade) throw(GradeException)
 {
 	if (newGrade < Bureaucrat::maxGrade)
 		throw GradeTooHighException();
 	else if (newGrade > Bureaucrat::minGrade)
 		throw GradeTooLowException();
 	else
-		minGrade = newGrade;
+		signGrade = newGrade;
 }
 
 /**
@@ -60,21 +55,17 @@ void	Form::setMinGrade(Bureaucrat::grade_t newGrade) throw(GradeException)
  */
 void	Form::beSigned(Bureaucrat const& signee) throw(GradeTooLowException)
 {
-	if (signee.getGrade() <= minGrade)
+	if (signee.getGrade() <= signGrade)
 		isSigned = true;
 	else
 		throw GradeTooLowException();
 }
 
 char const*	Form::GradeTooLowException::what() const throw()
-{
-	return "Grade too low";
-}
+{ return "Grade too low"; }
 
 char const*	Form::GradeTooHighException::what() const throw()
-{
-	return "Grade too high";
-}
+{ return "Grade too high"; }
 
 std::ostream&	operator<<(std::ostream& os, Form const& src)
 {
