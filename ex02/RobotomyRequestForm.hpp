@@ -3,18 +3,21 @@
 #include <iostream>
 #include <string>
 
-class RobotomyRequestForm
+#include "Form.hpp"
+
+class RobotomyRequestForm	:	virtual public Form
 {
 private:
+	std::string	target;
+
+	virtual void	payload(void) const;
 
 public:
 	RobotomyRequestForm();
-	~RobotomyRequestForm();
+	virtual ~RobotomyRequestForm();
 
+	RobotomyRequestForm(std::string const& target);
 	RobotomyRequestForm(RobotomyRequestForm const& src);
 
 	RobotomyRequestForm&	operator=(RobotomyRequestForm const& rhs);
 };
-
-std::ostream&	operator<<(std::ostream& os, RobotomyRequestForm const& src);
-

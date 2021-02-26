@@ -1,28 +1,41 @@
 #include "RobotomyRequestForm.hpp"
 
 RobotomyRequestForm::RobotomyRequestForm()
-{
-	// TODO: Implement default contructor
-}
+	:	Form("RobotomyRequestForm", 72, 45),
+		target("")
+{}
 
 RobotomyRequestForm::~RobotomyRequestForm()
-{
-	// TODO: Implement default destructor
-}
+{}
+
+RobotomyRequestForm::RobotomyRequestForm(std::string const& target)
+	:	Form("RobotomyRequestForm", 72, 45),
+		target(target)
+{}
 
 RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const& src)
-{
-	// TODO: Implement copy contructor
-}
+	:	Form(src.getName(), src.getSignGrade(), src.getExecGrade()),
+		target(src.target)
+{}
 
-RobotomyRequestForm&		RobotomyRequestForm::operator=(RobotomyRequestForm const& src)
+RobotomyRequestForm&		RobotomyRequestForm::operator=(RobotomyRequestForm const& rhs)
 {
-	// TODO: Implement = operator
+	if (this != &rhs)
+	{
+		Form::operator=(rhs);
+		target = rhs.target;
+	}
 	return *this;
 }
 
-std::ostream&	operator<<(std::ostream& os, RobotomyRequestForm const& src)
+void	RobotomyRequestForm::payload() const
 {
-	// TODO: Implement << operator
-	return os;
+	static bool	success = false;
+
+	success = !success;
+
+	std::cout << "Rizzzzzzz... Bzzzz! Bzzzzzzz!" << std::endl
+		<< target << (success
+			? " was robotomized successfully!"
+			: " could not be robotomized!") << std::endl;
 }

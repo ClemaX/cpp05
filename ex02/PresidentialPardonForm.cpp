@@ -1,28 +1,35 @@
 #include "PresidentialPardonForm.hpp"
 
 PresidentialPardonForm::PresidentialPardonForm()
-{
-	// TODO: Implement default contructor
-}
+	:	Form("PresidentialPardonForm", 72, 45),
+		target("")
+{}
 
 PresidentialPardonForm::~PresidentialPardonForm()
-{
-	// TODO: Implement default destructor
-}
+{}
+
+PresidentialPardonForm::PresidentialPardonForm(std::string const& target)
+	:	Form("PresidentialPardonForm", 72, 45),
+		target(target)
+{}
 
 PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const& src)
-{
-	// TODO: Implement copy contructor
-}
+	:	Form(src.getName(), src.getSignGrade(), src.getExecGrade()),
+		target(src.target)
+{}
 
-PresidentialPardonForm&		PresidentialPardonForm::operator=(PresidentialPardonForm const& src)
+PresidentialPardonForm&		PresidentialPardonForm::operator=(PresidentialPardonForm const& rhs)
 {
-	// TODO: Implement = operator
+	if (this != &rhs)
+	{
+		Form::operator=(rhs);
+		target = rhs.target;
+	}
 	return *this;
 }
 
-std::ostream&	operator<<(std::ostream& os, PresidentialPardonForm const& src)
+void	PresidentialPardonForm::payload() const
 {
-	// TODO: Implement << operator
-	return os;
+	std::cout << target <<  " has been pardoned by Zafod Beeblebrox!"
+		<< std::endl;
 }

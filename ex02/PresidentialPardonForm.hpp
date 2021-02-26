@@ -3,18 +3,21 @@
 #include <iostream>
 #include <string>
 
-class PresidentialPardonForm
+#include "Form.hpp"
+
+class PresidentialPardonForm	:	virtual public Form
 {
 private:
+	std::string	target;
+
+	virtual void	payload(void) const;
 
 public:
 	PresidentialPardonForm();
-	~PresidentialPardonForm();
+	virtual ~PresidentialPardonForm();
 
+	PresidentialPardonForm(std::string const& target);
 	PresidentialPardonForm(PresidentialPardonForm const& src);
 
 	PresidentialPardonForm&	operator=(PresidentialPardonForm const& rhs);
 };
-
-std::ostream&	operator<<(std::ostream& os, PresidentialPardonForm const& src);
-
