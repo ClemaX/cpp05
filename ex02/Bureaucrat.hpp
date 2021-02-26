@@ -52,7 +52,8 @@ public:
 	void	upgrade() throw(GradeException);
 	void	downgrade() throw(GradeException);
 
-	void	signForm(Form& form);
+	void	signForm(Form& form) const;
+	void	executeForm(Form& form) const;
 };
 
 std::ostream&	operator<<(std::ostream& os, Bureaucrat const& src);

@@ -71,14 +71,11 @@ void	Bureaucrat::downgrade() throw(GradeException)
  *
  * @param form
  */
-void	Bureaucrat::signForm(Form& form)
+void	Bureaucrat::signForm(Form& form) const
 {
 	bool	success = true;
 
-	try
-	{
-		form.beSigned(*this);
-	}
+	try { form.beSigned(*this); }
 	catch(const Form::GradeTooLowException& e)
 	{
 		success = false;
@@ -87,18 +84,35 @@ void	Bureaucrat::signForm(Form& form)
 	}
 
 	if (success)
-		std::cout << name << " signs " << form << std::endl;
+		std::cout << name << " signs " << form.getName() << std::endl;
+}
+
+/**
+ * @brief Execute a Form's payload.
+ *
+ * @param form
+ */
+void	Bureaucrat::executeForm(Form& form) const
+{
+	bool	success = true;
+
+	try { form.execute(*this); }
+	catch(const Form::FormException& e)
+	{
+		success = false;
+		std::cout << name << " cannot execute " << form.getName()
+			<< " because: " << e.what() << std::endl;
+	}
+
+	if (success)
+		std::cout << name << " executes " << form.getName() << std::endl;
 }
 
 char const*	Bureaucrat::GradeTooLowException::what() const throw()
-{
-	return "Grade too low";
-}
+{ return "Grade too low"; }
 
 char const*	Bureaucrat::GradeTooHighException::what() const throw()
-{
-	return "Grade too high";
-}
+{ return "Grade too high"; }
 
 std::ostream&	operator<<(std::ostream& os, Bureaucrat const& src)
 {
