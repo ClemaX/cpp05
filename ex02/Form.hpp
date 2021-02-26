@@ -59,9 +59,9 @@ public:
 	inline Bureaucrat::grade_t	getExecGrade() const { return execGrade; };
 	inline bool					getIsSigned() const { return isSigned; };
 
-	void	beSigned(Bureaucrat const& signee) throw (GradeTooLowException);
+	void	beSigned(Bureaucrat const& signee) throw(GradeTooLowException);
 	void	execute(Bureaucrat const& signee)
-		throw (GradeTooLowException, FormNotSignedException);
+		throw(GradeTooLowException, FormNotSignedException);
 };
 
 std::ostream&	operator<<(std::ostream& os, Form const& src);
