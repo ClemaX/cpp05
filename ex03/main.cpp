@@ -1,65 +1,55 @@
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 int main()
 {
 	using std::cout;
 	using std::endl;
 
-	cout << "Creating ShrubberyCreationForm" << endl;
 
-	ShrubberyCreationForm	formA("a");
+	cout << "Creating max level Bureaucrat" << endl;
 
-	cout << "Creating PresidentialPardonForm" << endl;
-
-	RobotomyRequestForm		formB("b");
-
-	cout << "Creating RobotomyRequestForm" << endl;
-
-	PresidentialPardonForm	formC("c");
-
-	cout << endl << "Creating Bureaucrat with valid grade" << endl;
-
-	Bureaucrat  hermes("Hermes", formA.getExecGrade());
+	Bureaucrat hermes("Hermes", Bureaucrat::maxGrade);
 	cout << hermes << endl;
 
-	cout << endl << "Sign and execute ShrubberyCreationForm" << endl;
+	cout << endl << "Hiring some random Intern" << endl;
 
-	hermes.signForm(formA);
-	hermes.executeForm(formA);
+	Intern intern;
 
-	cout << endl << "Creating Bureaucrat with invalid grade for exec" << endl;
+	cout << endl << "Ordering intern to create ShrubberyCreationForm" << endl;
 
-	Bureaucrat  bermes("Bermes", formA.getExecGrade() + 1);
-	cout << bermes << endl;
+	Form* tmp = intern.makeForm("shrubbery creation", "a");
 
-	cout << endl << "Attempt to sign and execute ShrubberyCreationForm" << endl;
+	cout << endl << "Attempt to sign and execute form" << endl;
 
-	bermes.signForm(formA);
-	bermes.executeForm(formA);
+	hermes.signForm(*tmp);
+	hermes.executeForm(*tmp);
 
-	cout << endl << "Creating Bureaucrat with valid grade for exec" << endl;
+	delete tmp;
+	tmp = NULL;
 
-	Bureaucrat  cermes("Cermes", formB.getExecGrade());
+	cout << endl << "Ordering intern to create RobotomyRequestForm" << endl;
 
-	cout << endl << "Sign and execute RobotomyRequestForm twice" << endl;
+	tmp = intern.makeForm("robotomy request", "Bender");
 
-	cermes.signForm(formB);
-	cermes.executeForm(formB);
+	cout << endl << "Attempt to sign and execute form" << endl;
 
-	cout << endl;
+	hermes.signForm(*tmp);
+	hermes.executeForm(*tmp);
 
-	cermes.executeForm(formB);
+	delete tmp;
+	tmp = NULL;
 
-	cout << endl << "Creating Bureaucrat with valid grade for exec" << endl;
+	cout << endl << "Ordering intern to create PresidentialPardonForm" << endl;
 
-	Bureaucrat  dermes("Dermes", formC.getExecGrade());
+	tmp = intern.makeForm("presidential pardon", "Terrorist");
 
-	cout << endl << "Sign and execute PresidentialPardonForm" << endl;
+	cout << endl << "Attempt to sign and execute form" << endl;
 
-	dermes.signForm(formC);
-	dermes.executeForm(formC);
+	hermes.signForm(*tmp);
+	hermes.executeForm(*tmp);
+
+	delete tmp;
+	tmp = NULL;
 
 	return 0;
 }
