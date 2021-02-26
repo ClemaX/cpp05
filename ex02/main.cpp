@@ -1,28 +1,33 @@
-#include "Form.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 int main()
 {
 	using std::cout;
 	using std::endl;
 
-	cout << "Creating Bureaucrat with valid grade" << endl;
+	cout << "Creating ShrubberyCreationForm" << endl;
 
-	Bureaucrat  hermes("Hermes", 42);
+	ShrubberyCreationForm	formA("formA");
+
+	cout << endl << "Creating Bureaucrat with valid grade" << endl;
+
+	Bureaucrat  hermes("Hermes", formA.getExecGrade());
 	cout << hermes << endl;
 
-	cout << endl << "Creating Form with higher grade" << endl;
-
-	Form	formA("formA", hermes.getGrade() - Bureaucrat::step);
-
-	cout << endl << "Attempt to sign" << endl;
+	cout << endl << "Sign and execute Form" << endl;
 
 	hermes.signForm(formA);
+	hermes.executeForm(formA);
 
-	cout << endl << "Creating Form with same grade" << endl;
+	cout << endl << "Creating Bureaucrat with invalid grade for exec" << endl;
 
-	Form	formB("formB", hermes.getGrade());
+	Bureaucrat  bermes("Bermes", formA.getExecGrade() + 1);
+	cout << bermes << endl;
 
-	hermes.signForm(formB);
+	cout << endl << "Attempt to sign and execute Form" << endl;
+
+	bermes.signForm(formA);
+	bermes.executeForm(formA);
 
 	return 0;
 }
