@@ -18,5 +18,21 @@ int main()
 
 	hermes.signForm(formA);
 
+	cout << endl << "Upgrade bureaucrat" << endl;
+
+	hermes.upgrade();
+
+	cout << endl << "Attempt to sign" << endl;
+
+	hermes.signForm(formA);
+
+	cout << endl << "Downgrade bureaucrat" << endl;
+
+	hermes.downgrade();
+
+	cout << endl << "Attempt to sign" << endl;
+
+	hermes.signForm(formA);
+
 	return 0;
 }
